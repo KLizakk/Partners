@@ -139,8 +139,21 @@
             playerDiv.style.backgroundColor = color;
         }
 
+        // Funkcja do nasłuchiwania zmian w formularzu
+        function setupEventListeners() {
+            for (let i = 1; i <= 4; i++) {
+                const nameInput = document.getElementById(`player${i}Name`);
+                const colorSelect = document.getElementById(`player${i}Color`);
+
+                // Nasłuchuj na zmiany w polach formularza
+                nameInput.addEventListener('input', () => setPlayerSettings(i));
+                colorSelect.addEventListener('change', () => setPlayerSettings(i));
+            }
+        }
+
         // Ustawienie wszystkich graczy po załadowaniu strony
         window.onload = () => {
+            setupEventListeners();  // Nasłuchiwanie na zmiany w formularzu
             for (let i = 1; i <= 4; i++) {
                 setPlayerSettings(i);
             }
