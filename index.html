@@ -16,6 +16,7 @@
         }
         .player {
             margin: 10px;
+            text-align: center;
         }
         button {
             margin: 5px;
@@ -23,30 +24,93 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .input-container {
+            margin-bottom: 20px;
+        }
+        input, select {
+            padding: 5px;
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        .color-picker {
+            width: 60px;
+            height: 30px;
+            margin-top: 5px;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h1>Licznik zbić</h1>
+
+    <!-- Wprowadzanie nazw i kolorów graczy -->
+    <div class="input-container">
+        <h3>Ustawienia graczy</h3>
+        <div>
+            <label for="player1Name">Gracz 1:</label>
+            <input type="text" id="player1Name" placeholder="Wpisz nazwę">
+            <select id="player1Color" class="color-picker">
+                <option value="red" style="background-color: red;">Czerwony</option>
+                <option value="blue" style="background-color: blue;">Niebieski</option>
+                <option value="green" style="background-color: green;">Zielony</option>
+                <option value="yellow" style="background-color: yellow;">Żółty</option>
+            </select>
+        </div>
+        <div>
+            <label for="player2Name">Gracz 2:</label>
+            <input type="text" id="player2Name" placeholder="Wpisz nazwę">
+            <select id="player2Color" class="color-picker">
+                <option value="red" style="background-color: red;">Czerwony</option>
+                <option value="blue" style="background-color: blue;">Niebieski</option>
+                <option value="green" style="background-color: green;">Zielony</option>
+                <option value="yellow" style="background-color: yellow;">Żółty</option>
+            </select>
+        </div>
+        <div>
+            <label for="player3Name">Gracz 3:</label>
+            <input type="text" id="player3Name" placeholder="Wpisz nazwę">
+            <select id="player3Color" class="color-picker">
+                <option value="red" style="background-color: red;">Czerwony</option>
+                <option value="blue" style="background-color: blue;">Niebieski</option>
+                <option value="green" style="background-color: green;">Zielony</option>
+                <option value="yellow" style="background-color: yellow;">Żółty</option>
+            </select>
+        </div>
+        <div>
+            <label for="player4Name">Gracz 4:</label>
+            <input type="text" id="player4Name" placeholder="Wpisz nazwę">
+            <select id="player4Color" class="color-picker">
+                <option value="red" style="background-color: red;">Czerwony</option>
+                <option value="blue" style="background-color: blue;">Niebieski</option>
+                <option value="green" style="background-color: green;">Zielony</option>
+                <option value="yellow" style="background-color: yellow;">Żółty</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Wyświetlanie wyników -->
     <div class="player" id="player1">
-        <h2>Gracz 1: <span id="score1">0</span></h2>
+        <h2><span id="name1">Gracz 1</span>: <span id="score1">0</span></h2>
         <button onclick="increment('score1')">Zbij</button>
         <button onclick="decrement('score1')">Cofnij</button>
     </div>
     <div class="player" id="player2">
-        <h2>Gracz 2: <span id="score2">0</span></h2>
+        <h2><span id="name2">Gracz 2</span>: <span id="score2">0</span></h2>
         <button onclick="increment('score2')">Zbij</button>
         <button onclick="decrement('score2')">Cofnij</button>
     </div>
     <div class="player" id="player3">
-        <h2>Gracz 3: <span id="score3">0</span></h2>
+        <h2><span id="name3">Gracz 3</span>: <span id="score3">0</span></h2>
         <button onclick="increment('score3')">Zbij</button>
         <button onclick="decrement('score3')">Cofnij</button>
     </div>
     <div class="player" id="player4">
-        <h2>Gracz 4: <span id="score4">0</span></h2>
+        <h2><span id="name4">Gracz 4</span>: <span id="score4">0</span></h2>
         <button onclick="increment('score4')">Zbij</button>
         <button onclick="decrement('score4')">Cofnij</button>
     </div>
+
     <script>
         function increment(id) {
             const scoreElement = document.getElementById(id);
@@ -60,6 +124,27 @@
                 scoreElement.textContent = currentScore - 1;
             }
         }
+
+        // Funkcja do ustawiania nazw i kolorów graczy
+        function setPlayerSettings(playerNumber) {
+            const name = document.getElementById(`player${playerNumber}Name`).value;
+            const color = document.getElementById(`player${playerNumber}Color`).value;
+
+            // Ustawienie nazwy gracza
+            const nameElement = document.getElementById(`name${playerNumber}`);
+            nameElement.textContent = name || `Gracz ${playerNumber}`;
+
+            // Ustawienie koloru tła dla gracza
+            const playerDiv = document.getElementById(`player${playerNumber}`);
+            playerDiv.style.backgroundColor = color;
+        }
+
+        // Ustawienie wszystkich graczy po załadowaniu strony
+        window.onload = () => {
+            for (let i = 1; i <= 4; i++) {
+                setPlayerSettings(i);
+            }
+        };
     </script>
 </body>
 </html>
