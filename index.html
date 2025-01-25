@@ -13,31 +13,75 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .input-container div {
+            margin: 10px 0;
+            text-align: center;
+            width: 90%;
+        }
+        input, select {
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 200px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .color-picker {
+            width: 40px;
+            height: 30px;
+            border: none;
+            cursor: pointer;
         }
         .player {
+            background-color: #fff;
             margin: 10px;
+            padding: 15px;
             text-align: center;
+            width: 90%;
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .player h2 {
+            font-size: 20px;
+            margin: 10px 0;
         }
         button {
             margin: 5px;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-        }
-        .input-container {
-            margin-bottom: 20px;
-        }
-        input, select {
-            padding: 5px;
-            margin-top: 5px;
-            font-size: 16px;
-        }
-        .color-picker {
-            width: 60px;
-            height: 30px;
-            margin-top: 5px;
+            border-radius: 5px;
             border: none;
-            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+            body {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .player {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -137,6 +181,10 @@
             // Ustawienie koloru tła dla gracza
             const playerDiv = document.getElementById(`player${playerNumber}`);
             playerDiv.style.backgroundColor = color;
+
+            // Zapisz dane gracza do localStorage
+            localStorage.setItem(`player${playerNumber}Name`, name || `Gracz ${playerNumber}`);
+            localStorage.setItem(`player${playerNumber}Color`, color);
         }
 
         // Funkcja do nasłuchiwania zmian w formularzu
@@ -155,7 +203,17 @@
         window.onload = () => {
             setupEventListeners();  // Nasłuchiwanie na zmiany w formularzu
             for (let i = 1; i <= 4; i++) {
-                setPlayerSettings(i);
+                // Sprawdzenie i załadowanie zapisanych danych z localStorage
+                const savedName = localStorage.getItem(`player${i}Name`);
+                const savedColor = localStorage.getItem(`player${i}Color`);
+                if (savedName) {
+                    document.getElementById(`player${i}Name`).value = savedName;
+                    document.getElementById(`player${i}`).querySelector('h2 #name' + i).textContent = savedName;
+                }
+                if (savedColor) {
+                    document.getElementById(`player${i}Color`).value = savedColor;
+                    document.getElementById(`player${i}`).style.backgroundColor = savedColor;
+                }
             }
         };
     </script>
