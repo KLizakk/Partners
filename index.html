@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licznik zbić</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .player {
+            margin: 10px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Licznik zbić</h1>
+    <div class="player" id="player1">
+        <h2>Gracz 1: <span id="score1">0</span></h2>
+        <button onclick="increment('score1')">Zbij</button>
+        <button onclick="decrement('score1')">Cofnij</button>
+    </div>
+    <div class="player" id="player2">
+        <h2>Gracz 2: <span id="score2">0</span></h2>
+        <button onclick="increment('score2')">Zbij</button>
+        <button onclick="decrement('score2')">Cofnij</button>
+    </div>
+    <div class="player" id="player3">
+        <h2>Gracz 3: <span id="score3">0</span></h2>
+        <button onclick="increment('score3')">Zbij</button>
+        <button onclick="decrement('score3')">Cofnij</button>
+    </div>
+    <div class="player" id="player4">
+        <h2>Gracz 4: <span id="score4">0</span></h2>
+        <button onclick="increment('score4')">Zbij</button>
+        <button onclick="decrement('score4')">Cofnij</button>
+    </div>
+    <script>
+        function increment(id) {
+            const scoreElement = document.getElementById(id);
+            scoreElement.textContent = parseInt(scoreElement.textContent) + 1;
+        }
+
+        function decrement(id) {
+            const scoreElement = document.getElementById(id);
+            const currentScore = parseInt(scoreElement.textContent);
+            if (currentScore > 0) {
+                scoreElement.textContent = currentScore - 1;
+            }
+        }
+    </script>
+</body>
+</html>
